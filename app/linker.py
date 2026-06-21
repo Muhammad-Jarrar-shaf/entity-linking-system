@@ -1,5 +1,5 @@
 from rapidfuzz import process
-
+from app.ner import extract_entities
 from app.kb import load_kb
 
 
@@ -35,3 +35,23 @@ def link_entity(entity):
         "score": score,
         "url": matched_record["url"]
     }
+
+
+
+
+def process_text(text):
+    """
+    Complete entity linking pipeline.
+    """
+
+    entities = extract_entities(text)
+
+    linked_entities = []
+
+    for entity in entities:
+        result = link_entity(entity["text"])
+        result["label"] = entity["label"]
+
+        linked_entities.append(result)
+
+    return linked_entities

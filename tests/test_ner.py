@@ -2,12 +2,11 @@ from app.ner import extract_entities
 
 
 def test_extract_entities():
-    text = "Elon Musk visited Pakistan."
-
-    entities = extract_entities(text)
+    entities = extract_entities(
+        "Elon Musk visited Pakistan."
+    )
 
     assert len(entities) > 0
 
-    assert "Elon Musk" in entities
-
-    assert "Pakistan" in entities
+    assert entities[0]["text"] == "Elon Musk"
+    assert entities[0]["label"] == "PERSON"
