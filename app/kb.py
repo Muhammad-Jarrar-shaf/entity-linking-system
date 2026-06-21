@@ -1,18 +1,12 @@
-# app/kb.py
-
 import pandas as pd
 
 
 def load_kb(filepath="data/knowledge_base.csv"):
-    """
-    Load the knowledge base from CSV.
-
-    Returns:
-        List[dict]
-    """
-
     df = pd.read_csv(filepath)
+    return df.to_dict(orient="records")
 
-    records = df.to_dict(orient="records")
 
-    return records
+def get_entity_names():
+    kb = load_kb()
+
+    return [row["entity"] for row in kb]
